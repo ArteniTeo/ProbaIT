@@ -37,7 +37,9 @@ public class VoteService {
         return repository.findByOptionId(optionId);
     }
 
-    //TODO Also, create all controllers and push to git
+    public void unVote(Vote vote) {
+        repository.delete(vote);
+    }
 
 
 }

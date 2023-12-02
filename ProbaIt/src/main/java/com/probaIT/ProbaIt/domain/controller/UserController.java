@@ -12,9 +12,10 @@ public class UserController {
 
     private final UserService service;
 
-    @GetMapping(value = "/login")
-    public User login(@RequestParam(value = "identifier") String identifier, @RequestParam(value = "password") String password) {
-        return service.login(identifier, password);
+    @PostMapping(value = "/login")
+    public User login(@RequestBody User user) {
+        if (user.getEmail().isBlank()) return service.login(user.getUsername(), user.getPassword());
+        else return service.login(user.getEmail(), user.getPassword());
     }
 
     @GetMapping(value = "/user")

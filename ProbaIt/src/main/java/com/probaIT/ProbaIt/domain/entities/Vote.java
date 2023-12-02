@@ -34,7 +34,7 @@ public class Vote {
     private Poll poll;
 
     @ManyToOne
-    @JoinColumn(name = "option_id")
+    @JoinColumn(name = "voted_option_id")
     private Option option;
 
     public Vote(Long id) {

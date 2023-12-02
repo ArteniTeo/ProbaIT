@@ -23,9 +23,8 @@ public class OptionService {
         return repository.findByPollId(pollId);
     }
 
-    public Option editOption(Long id) {
-        Option optionToBeEdited = repository.getById(id);
-        return repository.save(optionToBeEdited);
+    public Option editOption(Option option) {
+        return repository.save(option);
     }
 
     public void removeOption(Long id) {
