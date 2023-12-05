@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("login-button");
 
     loginForm.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent the form from submitting in the traditional way
+        event.preventDefault();
 
         const usernameOrEmailInput = document.getElementById("usernameOrEmail");
         const passwordInput = document.getElementById("password");
@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loginUser(loginData) {
-        // Use the fetch API to send a login request
         fetch("http://localhost:8080/login", {
             method: "POST",
             headers: {
@@ -51,11 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             console.log("Login successful:", data);
-            // Handle the response data as needed
+            localStorage.setItem('loggedUserId', data.id);
+            localStorage.setItem('loggedUserUsername', data.username);
+            window.location.href = "landing page.html";
         })
         .catch(error => {
             console.error("Error logging in:", error);
-            // Handle the login error
         });
     }
 });
