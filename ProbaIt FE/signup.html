@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Signup Page</title>
     <style>
         body {
             display: flex;
@@ -27,46 +27,50 @@
             box-sizing: border-box;
         }
 
-        #login-button {
+        #signup-button {
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #28a745;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        #login-button:hover {
-            background-color: blue;
+        #signup-button:hover {
+            background-color: #218838;
         }
 
-        #signup-link {
+        #login-link {
             margin-top: 10px;
             font-size: 14px;
             color: #007BFF;
             text-decoration: none;
         }
 
-        #signup-link:hover {
+        #login-link:hover {
             text-decoration: underline;
         }
+
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    <h2>Sign Up</h2>
 
-    <form id="login-form">
-        <label for="usernameOrEmail">Username or Email:</label>
-        <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
+    <form id="signup-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
 
-        <button id="login-button">Login</button>
+        <button id="signup-button">Sign Up</button>
     </form>
 
-    <a href="signup.html" id="signup-link">SignUp</a>
+    <a href="login.html" id="login-link">LogIn</a>
 
-    <script src="login.js"></script>
+    <script src="signup.js"></script>
 </body>
 </html>

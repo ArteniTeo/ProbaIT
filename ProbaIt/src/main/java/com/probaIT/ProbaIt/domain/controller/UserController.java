@@ -22,7 +22,7 @@ public class UserController {
         return service.getUserById(id);
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping(value = "/signup")
     public User signup(@RequestBody User user) {
         return service.createUser(user);
     }
