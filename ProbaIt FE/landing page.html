@@ -61,12 +61,32 @@
             background-color: blue;
         }
 
+        #logout-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #logout-button:hover{
+            background-color: blue;
+        }
+
     </style>
 </head>
 <body>
     <div id="polls-container"></div>
 
+    <!-- Initially hidden login button -->
     <a id="login-button" href="login.html">Login</a>
+
+    <!-- Initially hidden logout button -->
+    <a id="logout-button" href="landing page.html" hidden>Logout</a>
 
     <script src="landing page.js"></script>
 

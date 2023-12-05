@@ -21,6 +21,26 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error fetching polls:", error));
 
+        const loggedUserId = localStorage.getItem('loggedUserId');
+
+        const loginButton = document.getElementById("login-button");
+        const logoutButton = document.getElementById("logout-button");
+    
+        if (loggedUserId) {
+            loginButton.hidden = true;
+            logoutButton.hidden = false;
+        } else {
+            loginButton.hidden = false;
+            logoutButton.hidden = true;
+        }
+    
+        logoutButton.addEventListener("click", function () {
+            localStorage.removeItem('loggedUserId');
+            localStorage.removeItem('loggedUserUsername');
+            
+            window.location.href = "landing page.html";
+        });
+
     function createPollElement(poll, options) {
         const pollElement = document.createElement("div");
         pollElement.classList.add("poll");
@@ -42,8 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleVote(pollId, options) {
-        // E temporar pana fac login-ul
-        const userId = 1;
+        const userId = localStorage.getItem('loggedUserId');
 
         const selectedOptions = Array.from(document.getElementById(`poll-${pollId}`).querySelectorAll('input[name="option"]:checked')).map(input => input.value);
 
