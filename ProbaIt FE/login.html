@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            justify-content: center; /* Center content vertically */
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 250px;
+            box-sizing: border-box;
+        }
+
+        #login-button {
+            padding: 10px;
+            background-color: #007BFF; /* Blue color, you can customize */
+            color: #fff; /* White text, you can customize */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #login-button:hover{
+            background-color: blue;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+
+    <form id="login-form">
+        <label for="usernameOrEmail">Username or Email:</label>
+        <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button id="login-button">Login</button>
+    </form>
+
+    <script src="login.js"></script>
+</body>
+</html>

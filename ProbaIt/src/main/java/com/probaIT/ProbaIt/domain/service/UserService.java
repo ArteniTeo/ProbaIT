@@ -34,18 +34,18 @@ public class UserService {
         return repository.findByUsername(username);
     }
 
-    public User login(String identifier, String password) {
+    public User login(String username, String email, String password) {
         User check;
-        if (isEmailValid(identifier)) {
-            if (repository.findByEmail(identifier) != null) {
-                check = repository.findByEmail(identifier);
+        if (isEmailValid(email)) {
+            if (repository.findByEmail(email) != null) {
+                check = repository.findByEmail(email);
                 if (check.getPassword().equals(password)) return check;
             } else {
                 return new User(0L);
             }
         } else {
-            if(repository.findByUsername(identifier) != null){
-                check = repository.findByUsername(identifier);
+            if(repository.findByUsername(username) != null){
+                check = repository.findByUsername(username);
                 if(check.getPassword().equals(password)) return check;
             } else {
                 return new User(0L);
