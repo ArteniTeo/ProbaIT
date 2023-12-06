@@ -60,7 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
                 <form>
                     <ul>
-                        ${options.map(option => `<li><input type="${poll.multipleChoice ? 'checkbox' : 'radio'}" name="option" value="${option.id}">${option.optionText}</li>`).join('')}
+                        ${options.map(option => `
+                            <li>
+                                <label class="custom-checkbox">
+                                    <input type="${poll.multipleChoice ? 'checkbox' : 'radio'}" name="option" value="${option.id}">
+                                    <span class="checkmark"></span>
+                                    ${option.optionText}
+                                </label>
+                            </li>
+                        `).join('')}
                     </ul>
                 </form>
                 <button class="vote-button" data-poll-id="${poll.id}">Vote</button>
