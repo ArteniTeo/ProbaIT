@@ -5,6 +5,8 @@ import com.probaIT.ProbaIt.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.probaIT.ProbaIt.domain.util.UserValidator.*;
@@ -16,12 +18,17 @@ public class UserService {
 
     private final UserRepository repository;
 
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public User createUser(User user) {
         if (!isEmailValid(user.getEmail())) throw new RuntimeException("INVALID EMAIL");
         if (!isPasswordValid(user.getPassword())) throw new RuntimeException("INVALID PASSWORD");
 
         if (findByEmail(user.getEmail()) != null) throw new RuntimeException("Email already in use.");
         if (findByUsername(user.getUsername()) != null) throw new RuntimeException("Username already in use.");
+
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
 
         return repository.save(user);
     }
@@ -39,19 +46,26 @@ public class UserService {
         if (isEmailValid(email)) {
             if (repository.findByEmail(email) != null) {
                 check = repository.findByEmail(email);
-                if (check.getPassword().equals(password)) return check;
+                if (passwordEncoder.matches(password, check.getEmail())) {
+                    return check;
+                } else {
+                    throw new RuntimeException("Incorrect password");
+                }
             } else {
-                return new User(0L);
+                throw new RuntimeException("Could not find user with this email");
             }
         } else {
-            if(repository.findByUsername(username) != null){
+            if (repository.findByUsername(username) != null) {
                 check = repository.findByUsername(username);
-                if(check.getPassword().equals(password)) return check;
+                if (passwordEncoder.matches(password, check.getPassword())) {
+                    return check;
+                } else {
+                    throw new RuntimeException("Incorrect password");
+                }
             } else {
-                return new User(0L);
+                throw new RuntimeException("Could not find user with this username");
             }
         }
-        return new User(0L);
     }
 
     @Cacheable("users")

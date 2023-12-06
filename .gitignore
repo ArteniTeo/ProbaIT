@@ -8,3 +8,9 @@ ProbaIt/target/classes/MyStuff.sql
 *.class
 ProbaIt/target/classes/com/probaIT/ProbaIt/domain/repository/OptionRepository.class
 ProbaIt/target/classes/com/probaIT/ProbaIt/domain/repository/PollRepository.class
+*.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/ProbaItApplication.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/domain/service/VoteService.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/domain/service/UserService.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/domain/repository/VoteRepository.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/domain/repository/PollRepository.class
