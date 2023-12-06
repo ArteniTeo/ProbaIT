@@ -42,7 +42,7 @@
         footer {
             width: 40vh;
             justify-content: space-around;
-            background-color: rgb(255, 31, 102);
+            /* background-color: rgb(255, 31, 102); */
             padding: 20px;
             text-align: center;
             margin-top: auto;
@@ -177,6 +177,20 @@
             background-color: blue; 
         }
 
+        .remove-button {
+            background-color: rgb(246, 114, 114);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px; 
+        }
+
+        .remove-button:hover {
+            background-color: rgb(255, 0, 0);
+        }
+
     </style>
 </head>
 <body>
@@ -191,9 +205,15 @@
     <script src="landing page.js"></script>
 
     <footer>
-        <img id="footer-img" src="instagram-logo.png" alt="Instagram Logo" >
-        <img id="footer-img" src="facebook-logo.png" alt="Facebook Logo">
-        <img id="footer-img" src="twitch-logo.png" alt="Twitch Logo">
+        <button onclick="window.open('https://www.instagram.com/lsacbucuresti/', '_blank')" style="background-color: transparent; border-color: transparent;" >
+            <img id="footer-img" src="instagram-logo.png" alt="Instagram Logo">
+        </button>
+        <button onclick="window.open('https://www.facebook.com/lsacbucuresti/', '_blank')" style="background-color: transparent; border-color: transparent;">
+            <img id="footer-img" src="facebook-logo.png" alt="Facebook Logo">
+        </button>
+        <button onclick="window.open('https://www.twitch.tv/lsac_bucuresti/', '_blank')" style="background-color: transparent; border-color: transparent;">
+            <img id="footer-img" src="twitch-logo.png" alt="Twitch Logo">
+        </button>
     </footer>
 </body>
 </html>
