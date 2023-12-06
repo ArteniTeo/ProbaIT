@@ -52,7 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Login successful:", data);
             localStorage.setItem('loggedUserId', data.id);
             localStorage.setItem('loggedUserUsername', data.username);
-            window.location.href = "landing page.html";
+            if(data.id != null){
+                window.location.href = "landing page.html";
+            } else {
+                alert("Username or password incorect. Please try again.");
+            }
         })
         .catch(error => {
             console.error("Error logging in:", error);
