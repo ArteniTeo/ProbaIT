@@ -1,5 +1,6 @@
 package com.probaIT.ProbaIt.domain.service;
 
+import com.probaIT.ProbaIt.domain.entities.Option;
 import com.probaIT.ProbaIt.domain.entities.Vote;
 import com.probaIT.ProbaIt.domain.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +42,16 @@ public class VoteService {
         repository.delete(vote);
     }
 
+    public void deleteVote(Long id){
+        Vote voteToBeDeleted = repository.getById(id);
+        repository.deleteById(id);
+    }
+
+    public void removeAllVotesByPollId(Long id) {
+        List<Vote> optionsToBeDeleted = findByPollId(id);
+        for (Vote vote : optionsToBeDeleted) {
+            deleteVote(vote.getId());
+        }
+    }
 
 }
