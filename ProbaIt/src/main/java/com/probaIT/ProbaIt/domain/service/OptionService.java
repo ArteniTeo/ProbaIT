@@ -28,8 +28,14 @@ public class OptionService {
     }
 
     public void removeOption(Long id) {
-        Option optionToBeRemoved = repository.getById(id);
-        repository.delete(optionToBeRemoved);
+        repository.deleteById(id);
+    }
+
+    public void removeOptionByPollId(Long id) {
+        List<Option> optionsToBeDeleted = getAllOptionsOfAPoll(id);
+        for (Option option : optionsToBeDeleted) {
+            removeOption(option.getId());
+        }
     }
 
 }

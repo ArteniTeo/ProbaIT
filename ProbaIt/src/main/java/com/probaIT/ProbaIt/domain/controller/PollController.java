@@ -50,7 +50,7 @@ public class PollController {
 
     @DeleteMapping(value = "poll")
     public void deletePoll(@RequestParam(value = "pollId") Long pollId, @RequestParam(value = "userId") Long userId) {
-        service.removePoll(pollId, userId);
+        service.removePoll(userId, pollId);
     }
 
 }

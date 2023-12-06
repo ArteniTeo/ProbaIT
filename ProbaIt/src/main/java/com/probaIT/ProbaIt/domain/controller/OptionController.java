@@ -37,4 +37,9 @@ public class OptionController {
         service.removeOption(id);
     }
 
+    @DeleteMapping(value = "optionByPollId")
+    public void deleteOptionByPollId(@RequestParam(name = "id") Long pollId) {
+        service.removeOptionByPollId(pollId);
+    }
+
 }

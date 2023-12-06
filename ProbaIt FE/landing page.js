@@ -44,25 +44,52 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = "landing page.html";
         });
 
-    function createPollElement(poll, options) {
-        const pollElement = document.createElement("div");
-        pollElement.classList.add("poll");
-
-        const pollElementId = `poll-${poll.id}`;
-        pollElement.id = pollElementId;
-
-        pollElement.innerHTML = `
-            <h2>${poll.question}</h2>
-            <form>
-                <ul>
-                    ${options.map(option => `<li><input type="${poll.multipleChoice ? 'checkbox' : 'radio'}" name="option" value="${option.id}">${option.optionText}</li>`).join('')}
-                </ul>
-            </form>
-            <button class="vote-button" data-poll-id="${poll.id}">Vote</button>
-        `;
-
-        return pollElement;
-    }
+        function createPollElement(poll, options) {
+            const pollElement = document.createElement("div");
+            pollElement.classList.add("poll");
+    
+            const pollElementId = `poll-${poll.id}`;
+            pollElement.id = pollElementId;
+    
+            const isCreator = localStorage.getItem('loggedUserId') == poll.user.id;
+    
+            pollElement.innerHTML = `
+                <div class="poll-header">
+                    <h2>${poll.question}</h2>
+                    ${isCreator ? '<button class="remove-button" data-poll-id="${poll.id}">Remove</button>' : ''}
+                </div>
+                <form>
+                    <ul>
+                        ${options.map(option => `<li><input type="${poll.multipleChoice ? 'checkbox' : 'radio'}" name="option" value="${option.id}">${option.optionText}</li>`).join('')}
+                    </ul>
+                </form>
+                <button class="vote-button" data-poll-id="${poll.id}">Vote</button>
+            `;
+    
+            if (isCreator) {
+                const removeButton = pollElement.querySelector(".remove-button");
+                removeButton.addEventListener("click", function () {
+                    handleRemove(poll.id, poll.user.id);
+                });
+            }
+    
+            return pollElement;
+        }
+    
+        function handleRemove(pollId, userId) {
+            fetch(`http://localhost:8080/poll?pollId=${pollId}&userId=${userId}`, {
+                method: "DELETE",
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                        console.log(`Poll ${pollId} removed successfully.`);
+                    } else {
+                        console.error(`Error removing poll ${pollId}.`);
+                    }
+                })
+                .catch(error => console.error("Error removing poll:", error));
+        }
 
     function handleVote(pollId, options) {
         if(localStorage.getItem('loggedUserId') != null) {

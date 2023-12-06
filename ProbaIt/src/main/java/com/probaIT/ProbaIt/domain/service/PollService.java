@@ -14,6 +14,7 @@ import java.util.List;
 public class PollService {
 
     private final PollRepository repository;
+    private final OptionService optionService;
 
     public Poll createPoll(Poll poll) {
         return repository.save(poll);
@@ -38,7 +39,8 @@ public class PollService {
     public void removePoll(Long userId, Long pollId) {
         Poll pollToBeDeleted = repository.getById(pollId);
         if (pollToBeDeleted.getUser().getId() == userId) {
-            repository.delete(pollToBeDeleted);
+            optionService.removeOptionByPollId(pollId);
+            repository.deleteById(pollId);
         }
     }
 

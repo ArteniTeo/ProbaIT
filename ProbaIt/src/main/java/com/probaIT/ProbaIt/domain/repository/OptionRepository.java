@@ -10,5 +10,6 @@ public interface OptionRepository extends JpaRepository<Option, Long> {
     List<Option> findByPollId(Long pollId);
 
 
-
+    @Override
+    void deleteById(Long aLong);
 }
