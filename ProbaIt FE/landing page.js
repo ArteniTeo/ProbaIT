@@ -25,13 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const loginButton = document.getElementById("login-button");
         const logoutButton = document.getElementById("logout-button");
+        const createPollButton = document.getElementById("create-poll-button");
     
         if (loggedUserId) {
             loginButton.hidden = true;
             logoutButton.hidden = false;
+            createPollButton.hidden = false;
         } else {
             loginButton.hidden = false;
             logoutButton.hidden = true;
+            createPollButton.hidden = true;
         }
     
         logoutButton.addEventListener("click", function () {
@@ -62,29 +65,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleVote(pollId, options) {
-        const userId = localStorage.getItem('loggedUserId');
+        if(localStorage.getItem('loggedUserId') != null) {
+            const userId = localStorage.getItem('loggedUserId');
 
-        const selectedOptions = Array.from(document.getElementById(`poll-${pollId}`).querySelectorAll('input[name="option"]:checked')).map(input => input.value);
+            const selectedOptions = Array.from(document.getElementById(`poll-${pollId}`).querySelectorAll('input[name="option"]:checked')).map(input => input.value);
 
-        selectedOptions.forEach(optionId => {
-            const voteData = {
-                user: { id: userId },
-                poll: { id: pollId },
-                option: { id: optionId }
-            };
+            selectedOptions.forEach(optionId => {
+                const voteData = {
+                    user: { id: userId },
+                    poll: { id: pollId },
+                    option: { id: optionId }
+                };
 
-            fetch("http://localhost:8080/vote", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(voteData)
-            })
-            .then(response => response.json())
-            .then(data => console.log("Vote successful:", data))
-            .catch(error => console.error("Error voting:", error));
-        });
+                fetch("http://localhost:8080/vote", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(voteData)
+                })
+                .then(response => response.json())
+                .then(data => console.log("Vote successful:", data))
+                .catch(error => console.error("Error voting:", error));
+            });
 
-        alert("Yay, votat cu succes !");
+            alert("Yay, votat cu succes !");
+        } else {
+            alert("Trebuie sa te loghezi inaite de a vota !");
+        }
     }
 });

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Poll</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input, select {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 250px;
+            box-sizing: border-box;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        .option-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .remove-option-button {
+            margin-left: 10px;
+            padding: 5px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-option-button:hover {
+            background-color: #c82333;
+        }
+
+        #create-poll-button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #create-poll-button:hover {
+            background-color: blue;
+        }
+
+        #add-option-button {
+            padding: 5px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #add-option-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h2>Create Poll</h2>
+
+    <form id="create-poll-form">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required>
+
+        <label for="multiple-choice">Multiple Choice:</label>
+        <select id="multiple-choice" name="multiple-choice" required>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+
+        <div class="option-container" id="options-container">
+            <!-- Default options -->
+            <div class="option">
+                <label for="option1">Option 1:</label>
+                <input type="text" id="option1" name="option1" required>
+            </div>
+            <div class="option">
+                <label for="option2">Option 2:</label>
+                <input type="text" id="option2" name="option2" required>
+            </div>
+        </div>
+
+        <button id="add-option-button" type="button">+ Add Option</button>
+
+        <button id="create-poll-button">Create Poll</button>
+    </form>
+
+    <script src="createPoll.js"></script>
+</body>
+</html>
