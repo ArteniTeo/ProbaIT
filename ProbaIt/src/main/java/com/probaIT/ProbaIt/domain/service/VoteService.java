@@ -38,11 +38,15 @@ public class VoteService {
         return repository.findByOptionId(optionId);
     }
 
+    public long countVotesOfAnOption(Long optionId) {
+        return repository.countByOption_Id(optionId);
+    }
+
     public void unVote(Vote vote) {
         repository.delete(vote);
     }
 
-    public void deleteVote(Long id){
+    public void deleteVote(Long id) {
         Vote voteToBeDeleted = repository.getById(id);
         repository.deleteById(id);
     }

@@ -19,14 +19,9 @@ public class VoteController {
         return service.findByVoteId(id);
     }
 
-    @GetMapping(value = "getVotes")
-    public List<Vote> getVotesOfAnOption(@RequestParam(name = "id") Long id) {
-        return service.findByOptionId(id);
-    }
-
-    @GetMapping(value = "usersVotes")
-    public List<Vote> getVotesOfAnUser(@RequestParam(name = "id") Long id) {
-        return service.findByUserId(id);
+    @GetMapping(value = "countVotes")
+    public Long countVotes(@RequestParam(name = "optionId") Long id) {
+        return service.countVotesOfAnOption(id);
     }
 
     @PostMapping(value = "vote")
