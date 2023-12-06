@@ -2,3 +2,9 @@
 *.xml
 *.class
 *.class
+*.class
+ProbaIt/src/main/resources/MyStuff.sql
+ProbaIt/target/classes/MyStuff.sql
+*.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/domain/repository/OptionRepository.class
+ProbaIt/target/classes/com/probaIT/ProbaIt/domain/repository/PollRepository.class
