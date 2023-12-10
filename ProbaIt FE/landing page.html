@@ -15,18 +15,70 @@
             margin: 0;
         }
 
-        #polls-container {
+        #container{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .polls-container {
             font-size: larger;
             border-radius: 60px;
             padding: 5vh;
-            background-color: rgb(238, 239, 219);
+
             text-align: center;
             margin-top: 50px;
             flex-grow: 1;
         }
 
         .poll {
+            background-color: rgb(238, 239, 219);
+            width: 400px;
+            height: 400px;
             margin-bottom: 20px;
+            border: none;
+            border-radius: 14px;
+            padding: 15px;
+        }
+
+
+        .poll-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vote-button {
+            font-weight: bold;
+            font-size: medium;
+            background-color: #007BFF;
+            width: 250px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+            position: relative;
+            bottom: 0;
+        }
+
+        .vote-button:hover {
+            background-color: blue; 
+        }
+
+        .remove-button {
+            background-color: rgb(246, 114, 114);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px; 
+        }
+
+        .remove-button:hover {
+            background-color: rgb(255, 0, 0);
         }
 
         ul {
@@ -105,12 +157,6 @@
             background-color: blue;
         }
 
-        .poll-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
 
         .custom-checkbox {
             position: relative;
@@ -160,42 +206,18 @@
             transform: rotate(45deg);
         }
 
-        .vote-button {
-            font-weight: bold;
-            font-size: medium;
-            background-color: #007BFF;
-            width: 400px;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .vote-button:hover {
-            background-color: blue; 
-        }
-
-        .remove-button {
-            background-color: rgb(246, 114, 114);
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px;
-            margin-top: 10px; 
-        }
-
-        .remove-button:hover {
-            background-color: rgb(255, 0, 0);
+        .vote-count {
+            display: inline-block;
+            margin-left: 10px; /* Adjust the margin as needed */
         }
 
     </style>
 </head>
 <body>
-    <div id="polls-container"></div>
-
+    <div id="container">
+        <div id="polls-container-left" class = "polls-container"></div>
+        <div id="polls-container-right" class = "polls-container"></div>
+    </div>
     <a id="login-button" href="login.html">Login</a>
 
     <a id="logout-button" href="landing page.html" hidden>Logout</a>

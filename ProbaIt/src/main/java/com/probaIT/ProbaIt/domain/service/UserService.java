@@ -42,12 +42,12 @@ public class UserService {
     }
 
     public User login(String username, String email, String password) {
-        User check;
+        User loggedInUser;
         if (isEmailValid(email)) {
             if (repository.findByEmail(email) != null) {
-                check = repository.findByEmail(email);
-                if (passwordEncoder.matches(password, check.getEmail())) {
-                    return check;
+                loggedInUser = repository.findByEmail(email);
+                if (passwordEncoder.matches(password, loggedInUser.getPassword())) {
+                    return loggedInUser;
                 } else {
                     throw new RuntimeException("Incorrect password");
                 }
@@ -56,9 +56,9 @@ public class UserService {
             }
         } else {
             if (repository.findByUsername(username) != null) {
-                check = repository.findByUsername(username);
-                if (passwordEncoder.matches(password, check.getPassword())) {
-                    return check;
+                loggedInUser = repository.findByUsername(username);
+                if (passwordEncoder.matches(password, loggedInUser.getPassword())) {
+                    return loggedInUser;
                 } else {
                     throw new RuntimeException("Incorrect password");
                 }

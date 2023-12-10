@@ -34,8 +34,8 @@ public class VoteService {
         return repository.findByPollId(pollId);
     }
 
-    public List<Vote> findByOptionId(Long optionId) {
-        return repository.findByOptionId(optionId);
+    public Vote findByUserIdAndPollId(Long userId, Long pollId) {
+        return repository.findFirstByUser_IdAndPoll_IdOrderByIdAsc(userId, pollId);
     }
 
     public long countVotesOfAnOption(Long optionId) {

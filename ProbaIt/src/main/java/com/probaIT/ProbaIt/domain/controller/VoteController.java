@@ -19,6 +19,11 @@ public class VoteController {
         return service.findByVoteId(id);
     }
 
+    @GetMapping(value = "checkExists")
+    public boolean getVoteByUserIdAndPollId(@RequestParam(name = "userId") Long userId, @RequestParam(name = "pollId") Long pollId) {
+        return service.findByUserIdAndPollId(userId, pollId) != null;
+    }
+
     @GetMapping(value = "countVotes")
     public Long countVotes(@RequestParam(name = "optionId") Long id) {
         return service.countVotesOfAnOption(id);

@@ -2,18 +2,32 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("http://localhost:8080/polls")
         .then(response => response.json())
         .then(polls => {
-            const pollsContainer = document.getElementById("polls-container");
+            const pollsContainerLeft = document.getElementById("polls-container-left");
+            const pollsContainerRight = document.getElementById("polls-container-right");
 
+            var right = false;
             polls.forEach(poll => {
                 fetch(`http://localhost:8080/options?id=${poll.id}`)
                     .then(response => response.json())
                     .then(options => {
                         const pollElement = createPollElement(poll, options);
-                        pollsContainer.appendChild(pollElement);
-
+                        if(right){
+                            pollsContainerRight.appendChild(pollElement);
+                            right = false;
+                        }else{
+                            pollsContainerLeft.appendChild(pollElement);
+                            right = true;
+                        }       
                         const voteButton = pollElement.querySelector(".vote-button");
                         voteButton.addEventListener("click", function () {
                             handleVote(poll.id, options);
+                        });
+
+                        options.forEach(option => {
+                            fetch(`http://localhost:8080/countVotes?optionId=${option.id}`)
+                                .then(response => response.json())
+                                .then(count => updateVoteCount(option.id, count))
+                                .catch(error => console.error(`Error fetching vote count for option ${option.id}:`, error));
                         });
                     })
                     .catch(error => console.error(`Error fetching options for poll ${poll.id}:`, error));
@@ -55,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             pollElement.innerHTML = `
                 <div class="poll-header">
-                    <h2>${poll.question}</h2>
+                    <h2 calss="poll-title">${poll.question}</h2>
                     ${isCreator ? '<button class="remove-button" data-poll-id="${poll.id}">Remove</button>' : ''}
                 </div>
                 <form>
@@ -67,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <span class="checkmark"></span>
                                     ${option.optionText}
                                 </label>
+                                <div id="vote-count-${option.id}" class="vote-count">Votes: Loading...</div>
                             </li>
                         `).join('')}
                     </ul>
@@ -99,34 +114,52 @@ document.addEventListener("DOMContentLoaded", function () {
                 .catch(error => console.error("Error removing poll:", error));
         }
 
+        function updateVoteCount(optionId, count) {
+            const countElement = document.getElementById(`vote-count-${optionId}`);
+            if (countElement) {
+                countElement.innerText = `Votes: ${count}`;
+            }
+        }
+
     function handleVote(pollId, options) {
         if(localStorage.getItem('loggedUserId') != null) {
             const userId = localStorage.getItem('loggedUserId');
 
-            const selectedOptions = Array.from(document.getElementById(`poll-${pollId}`).querySelectorAll('input[name="option"]:checked')).map(input => input.value);
-
-            selectedOptions.forEach(optionId => {
-                const voteData = {
-                    user: { id: userId },
-                    poll: { id: pollId },
-                    option: { id: optionId }
-                };
-
-                fetch("http://localhost:8080/vote", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(voteData)
-                })
+            fetch(`http://localhost:8080/checkExists?userId=${userId}&pollId=${pollId}`)
                 .then(response => response.json())
-                .then(data => console.log("Vote successful:", data))
-                .catch(error => console.error("Error voting:", error));
-            });
+                .then(data => {
+                    console.log(data);
+                    if(!data){
+                        const selectedOptions = Array.from(document.getElementById(`poll-${pollId}`).querySelectorAll('input[name="option"]:checked')).map(input => input.value);
 
-            alert("Yay, votat cu succes !");
+                        selectedOptions.forEach(optionId => {
+                            const voteData = {
+                                user: { id: userId },
+                                poll: { id: pollId },
+                                option: { id: optionId }
+                            };
+            
+                            fetch("http://localhost:8080/vote", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(voteData)
+                            })
+                            .then(response => response.json())
+                            .then(data => console.log("Vote successful:", data))
+                            .catch(error => console.error("Error voting:", error));
+                        });
+            
+                        alert("Yay, votat cu succes !");
+                        location.reload();
+                    } else {
+                        alert("Ai votat deja");
+                    }
+                });
         } else {
             alert("Trebuie sa te loghezi inaite de a vota !");
         }
     }
+    
 });
