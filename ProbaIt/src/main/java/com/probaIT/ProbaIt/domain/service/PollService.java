@@ -30,7 +30,7 @@ public class PollService {
     }
 
     public List<Poll> getAllPolls() {
-        return repository.findAll();
+        return repository.findByIdGreaterThanOrderByIdDesc(0);
     }
 
     public List<Poll> getAllPollsOfAUser(Long id) {
