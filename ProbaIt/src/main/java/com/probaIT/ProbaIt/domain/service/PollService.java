@@ -4,6 +4,7 @@ import com.probaIT.ProbaIt.domain.entities.Poll;
 import com.probaIT.ProbaIt.domain.repository.PollRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class PollService {
     }
 
     public List<Poll> getAllPolls() {
-        return repository.findByIdGreaterThanOrderByIdDesc(0);
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public List<Poll> getAllPollsOfAUser(Long id) {

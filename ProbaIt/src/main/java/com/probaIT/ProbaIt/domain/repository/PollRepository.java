@@ -12,10 +12,6 @@ public interface PollRepository extends JpaRepository<Poll, Long> {
 
     List<Poll> findByUserId(Long userId);
 
-    List<Poll> findByIdGreaterThanOrderByIdDesc(long id);
-
-
-
     @Override
     void deleteById(Long aLong);
 }
